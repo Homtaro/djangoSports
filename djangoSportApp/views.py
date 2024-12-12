@@ -98,8 +98,12 @@ def catalogue_page(request):
     if selected_categories:
         structures = structures.filter(category__id__in=selected_categories)
 
+    # if selected_tags:
+    #     structures = structures.filter(tags__id__in=selected_tags)
+
     if selected_tags:
-        structures = structures.filter(tags__id__in=selected_tags)
+        for tag_id in selected_tags:
+            structures = structures.filter(tags__id=tag_id)
 
     # Remove duplicates
     structures = structures.distinct()
