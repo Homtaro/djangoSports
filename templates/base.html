@@ -22,12 +22,12 @@
     }
 
     .container-fluid {
-        flex: 1; /* Ensures this section takes up the remaining space */
+        flex: 1;
     }
 
     footer {
-        flex-shrink: 0; /* Prevents the footer from shrinking */
-        background-color: #212529; /* Ensures consistent background color */
+        flex-shrink: 0;
+        background-color: #212529;
         color: white;
         text-align: center;
         padding: 1rem 0;
@@ -57,13 +57,11 @@
         </div>
     </nav>
 
-    <!-- Intro Section -->
-
 
     <!-- Main Content -->
     <div class="nomargin">
         {% block content %}
-        <!-- Child templates will inject content here -->
+        <!-- content -->
         {% endblock %}
     </div>
 

@@ -13,7 +13,7 @@ from django.views import View
 from django import forms
 
 from djangoSportApp.forms import SportStructureForm, SportStructureImageForm, TagsForm, CategoryForm, CommentForm, \
-    RatingForm, UserPermissionsForm, CustomUserEditForm, RatingFormUser, CommentFormUser
+    RatingForm, UserPermissionsForm, CustomUserEditForm, RatingFormUser, CommentFormUser, SignUpForm
 from djangoSportApp.models import SportStructure, Category, Tag, SportStructureImage, Rating, Comment
 
 
@@ -101,7 +101,7 @@ def catalogue_page(request):
     if selected_tags:
         structures = structures.filter(tags__id__in=selected_tags)
 
-    # Ensure distinct results
+    # Remove duplicates
     structures = structures.distinct()
 
     # Pagination
@@ -109,7 +109,7 @@ def catalogue_page(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    # Build base query string without 'page' param for pagination links
+    # Fixing glitch with pagination reset
     query_params = request.GET.copy()
     if 'page' in query_params:
         query_params.pop('page')
@@ -125,21 +125,8 @@ def catalogue_page(request):
         'base_query_string': base_query_string,
     })
 
+
 # Form for user registration
-class SignUpForm(forms.ModelForm):
-    password1 = forms.CharField(widget=forms.PasswordInput, label="Password")
-    password2 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
-
-    class Meta:
-        model = User
-        fields = ['username', 'email']
-
-    def clean_password2(self):
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match.")
-        return password2
 
 
 def signup_view(request):
@@ -153,7 +140,7 @@ def signup_view(request):
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
             if user is not None:
                 login(request, user)
-            return redirect('dummyPage')  # Redirect after successful signup
+            return redirect('dummyPage')
         else:
             return render(request, 'signup.html', {'form': form})
     else:
@@ -167,7 +154,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('profile')  # Redirect to a page after successful login
+            return redirect('profile')
         else:
             return render(request, 'login.html', {'form': form})
     else:
@@ -295,8 +282,7 @@ def structure_detail_user(request, pk):
     })
 
 
-
-#CRUDS
+# CRUDS
 
 # Structure CRUD
 @permission_required('djangoSportApp.view_sportstructure', raise_exception=True)
