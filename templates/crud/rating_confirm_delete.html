@@ -1,0 +1,13 @@
+{% extends 'crud/crud_ratings_base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Confirm Deletion</h1>
+    <p>Are you sure you want to delete {{ rating.user }}`s rating for {{ rating.sport_structure }} that is "{{ rating.rating }}"</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'ratings_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'crud/crud_users_base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Confirm Deletion</h1>
+    <p>Are you sure you want to delete User "{{ user.username }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'users_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

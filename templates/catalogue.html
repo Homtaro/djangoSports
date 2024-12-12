@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block title %}Catalogue - DjangoSports{% endblock %}
+
+{% block content %}
+<style>
+    .card-text {
+        min-height: 80px;
+        max-height: 80px;
+    }
+</style>
+
+<!-- Search Section -->
+<div class="bg-light py-4">
+    <div class="container">
+        <h2 class="mb-3 fw-bold">Explore Our Sports Structures</h2>
+        <form method="GET" action="{% url 'catalogue' %}">
+            <div class="input-group">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search for sports structures..."
+                    aria-label="Search"
+                    name="search"
+                    value="{{ search_query }}">
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Main Layout -->
+<div class="container mt-4">
+    <div class="row g-5">
+        <!-- Sidebar -->
+        <aside class="col-md-3">
+            <form method="GET" action="{% url 'catalogue' %}">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white border-bottom-0">
+                        <h5 class="mb-0 fw-bold">Filter by</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="fw-semibold">Categories</h6>
+                        <hr class="my-2">
+                        <ul class="list-group mb-3">
+                            {% for category in categories %}
+                                <li class="list-group-item border-0 ps-0">
+                                    <div class="form-check">
+                                        <input
+                                            type="checkbox"
+                                            class="form-check-input"
+                                            id="category{{ category.id }}"
+                                            name="category"
+                                            value="{{ category.id }}"
+                                            {% if category.id in selected_categories %}checked{% endif %}>
+                                        <label class="form-check-label" for="category{{ category.id }}">{{ category.name }}</label>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        <h6 class="fw-semibold">Tags</h6>
+                        <hr class="my-2">
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            {% for tag in tags %}
+                                <div class="form-check d-inline-block">
+                                    <input
+                                        type="checkbox"
+                                        class="form-check-input"
+                                        id="tag{{ tag.id }}"
+                                        name="tag"
+                                        value="{{ tag.id }}"
+                                        {% if tag.id in selected_tags %}checked{% endif %}>
+                                    <label class="form-check-label ms-1" for="tag{{ tag.id }}">
+                                        <span class="badge bg-primary">{{ tag.name }}</span>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="submit" class="btn btn-primary">Apply Filters</button>
+                            <a href="{% url 'catalogue' %}" class="btn btn-outline-secondary">Clear Filters</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="col-md-9">
+            {% if page_obj %}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    {% for structure in page_obj %}
+                        <div class="col">
+                            <div class="card h-100 shadow-sm d-flex flex-column">
+                                {% if structure.images.first %}
+                                    <img src="{{ structure.images.first.image.url }}"
+                                         class="card-img-top"
+                                         style="max-width: 100%; max-height: 200px; object-fit: cover;"
+                                         alt="{{ structure.name }}">
+                                {% else %}
+                                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="No Image">
+                                {% endif %}
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title mb-2">{{ structure.name }}</h5>
+                                    <p class="card-text text-muted mb-3">{{ structure.description|truncatechars:100 }}</p>
+                                    {% if structure.tags.all %}
+                                        <div class="mb-2">
+                                            {% for tag in structure.tags.all %}
+                                                <span class="badge bg-primary">{{ tag.name }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <p class="text-muted mb-3">
+                                        <strong>Category:</strong> {{ structure.category.name }}
+                                    </p>
+                                    <div class="mt-auto">
+                                        <a href="/catalogue/structure/{{ structure.id }}" class="btn btn-primary">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{{ base_query_string }}{% if base_query_string %}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;</span>
+                            </li>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                                <a class="page-link" href="?{{ base_query_string }}{% if base_query_string %}&{% endif %}page={{ num }}">{{ num }}</a>
+                            </li>
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{{ base_query_string }}{% if base_query_string %}&{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&raquo;</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% else %}
+                <p class="text-muted">No structures found. Try adjusting the search or filters.</p>
+            {% endif %}
+        </main>
+    </div>
+</div>
+{% endblock %}

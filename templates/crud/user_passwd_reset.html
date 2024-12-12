@@ -1,0 +1,15 @@
+{% extends 'crud/crud_users_base.html' %}
+
+{% block title %}Change Password{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Change Password for {{ user.username }}</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save Password</button>
+        <a href="{% url 'users_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

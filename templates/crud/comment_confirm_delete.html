@@ -1,0 +1,14 @@
+{% extends 'crud/crud_comments_base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Confirm Deletion</h1>
+    <p>Are you sure you want to delete {{ comment.user }}`s comment for {{ comment.sport_structure }} that starts with:</p>
+    <p style="background: aliceblue; font-style: italic">"{{ comment.text | truncatewords:30 }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'comments_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

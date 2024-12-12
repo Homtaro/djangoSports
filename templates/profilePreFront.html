@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - DjangoSports{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Profile</h2>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+    <p><strong>Status:</strong> {{ user.is_staff|yesno:"Admin,User" }}</p>
+
+    <!-- Display button if user is an admin -->
+    {% if user.is_staff %}
+        <a href="/admin" class="btn btn-warning mt-3">Access Admin Panel</a>
+    {% endif %}
+
+    <!-- Logout button -->
+    <form method="post" action="{% url 'logout' %}" class="mt-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+
+</div>
+    <div class="mt-5"></div>
+{% endblock %}

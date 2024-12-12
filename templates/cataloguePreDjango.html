@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogue - DjangoSports</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">DjangoSports</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'dummyPage' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'catalogue' %}">Catalogue</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="container mt-4">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for sports structures..." aria-label="Search">
+            <button class="btn btn-primary" type="button"><i class="bi bi-search"></i> Search</button>
+        </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <aside class="col-md-3">
+                <h5>Filter by</h5>
+                <hr>
+                <!-- Categories -->
+                <h6>Categories</h6>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-2" id="category1"> Stadiums
+                    </li>
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-2" id="category2"> Gyms
+                    </li>
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-2" id="category3"> Pools
+                    </li>
+                </ul>
+                <!-- Tags -->
+                <h6 class="mt-3">Tags</h6>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-primary">Indoor</span>
+                    <span class="badge bg-secondary">Outdoor</span>
+                    <span class="badge bg-success">Public</span>
+                    <span class="badge bg-warning text-dark">Private</span>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="col-md-9">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <!-- Object 1 -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Object 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Sport Structure 1</h5>
+                            <p class="card-text">A short description of this sport structure.</p>
+                            <!-- Tags -->
+                            <div class="mb-2">
+                                <span class="badge bg-primary">Indoor</span>
+                                <span class="badge bg-secondary">Public</span>
+                            </div>
+                            <!-- Categories -->
+                            <p class="text-muted mb-2">
+                                <strong>Category:</strong> Stadium
+                            </p>
+                            <a href="/object/1" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Object 2 -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Object 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Sport Structure 2</h5>
+                            <p class="card-text">A short description of this sport structure.</p>
+                            <!-- Tags -->
+                            <div class="mb-2">
+                                <span class="badge bg-success">Outdoor</span>
+                                <span class="badge bg-warning text-dark">Private</span>
+                            </div>
+                            <!-- Categories -->
+                            <p class="text-muted mb-2">
+                                <strong>Category:</strong> Gym
+                            </p>
+                            <a href="/object/2" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Object 3 -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Object 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Sport Structure 3</h5>
+                            <p class="card-text">A short description of this sport structure.</p>
+                            <!-- Tags -->
+                            <div class="mb-2">
+                                <span class="badge bg-info text-dark">Indoor</span>
+                                <span class="badge bg-danger">Restricted</span>
+                            </div>
+                            <!-- Categories -->
+                            <p class="text-muted mb-2">
+                                <strong>Category:</strong> Pool
+                            </p>
+                            <a href="/object/3" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </main>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 DjangoSports. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

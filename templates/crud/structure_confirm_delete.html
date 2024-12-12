@@ -1,0 +1,21 @@
+{% extends 'crud/crud_structure_base.html' %}
+
+{% block title %}Delete Structure{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-header bg-danger text-white">
+        <h5 class="mb-0">Delete {{ structure.name }}</h5>
+    </div>
+    <div class="card-body">
+        <p>Are you sure you want to delete <strong>{{ structure.name }}</strong>? This action cannot be undone.</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'structure_list' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Confirm</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

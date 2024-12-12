@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DjangoSports | Control{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'dummyPage' %}">DjangoSports - CRUD Panel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Control Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="controlDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Control
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="controlDropdown">
+{#                            <li><a class="dropdown-item" href="{% url 'structure_list' %}">Sport Structures</a></li>#}
+{#                            <li><a class="dropdown-item" href="{% url 'structure_images_list' %}">Sport Structure Images</a></li>#}
+{#                            <li><a class="dropdown-item" href="{% url 'tags_list' %}">Tags</a></li>#}
+{#                            <li><a class="dropdown-item" href="{% url 'categories_list' %}">Categories</a></li>#}
+{#                            <li><a class="dropdown-item" href="{% url 'comments_list' %}">Comments</a></li>#}
+{#                            <li><a class="dropdown-item" href="{% url 'ratings_list' %}">Ratings</a></li>#}
+
+                            <li><a class="dropdown-item" href="{% url 'structure_list' %}">Sport Structures</a></li>
+                            <li><a class="dropdown-item" href="{% url 'image_list' %}">Sport Structure Images</a></li>
+                            <li><a class="dropdown-item" href="{% url 'tags_list' %}">Tags</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category_list' %}">Categories</a></li>
+                            <li><a class="dropdown-item" href="{% url 'comments_list' %}">Comments</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ratings_list' %}">Ratings</a></li>
+                            <li><a class="dropdown-item" href="{% url 'users_list' %}">Users</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Main Page -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dummyPage' %}">Main Page</a>
+                    </li>
+
+                    <!-- Admin Panel -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/">Admin Panel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container mt-4">
+        {% block crud_content %}
+        <!-- Default content for CRUD pages -->
+        {% endblock %}
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

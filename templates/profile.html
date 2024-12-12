@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - DjangoSports{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="display-5 fw-bold text-dark mb-4">Profile</h2>
+    <div class="row g-5 align-items-stretch">
+
+        <!-- Profile Info Column -->
+        <div class="col-md-6 d-flex">
+            <div class="card shadow-sm w-100 h-100">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="my-1">User Information</h4>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2"><strong>Username:</strong> {{ user.username }}</p>
+                    <p class="mb-2"><strong>Email:</strong> {{ user.email }}</p>
+                    <p class="mb-2"><strong>First Name:</strong> {{ user.first_name }}</p>
+                    <p class="mb-2"><strong>Last Name:</strong> {{ user.last_name }}</p>
+                    <p class="mb-0"><strong>Status:</strong> {{ user.is_staff|yesno:"Admin,User" }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons Column -->
+        <div class="col-md-6 d-flex">
+            <div class="card shadow-sm w-100 h-100">
+                <div class="card-header bg-secondary text-white">
+                    <h4 class="my-1">Actions</h4>
+                </div>
+                <div class="card-body d-flex flex-column align-items-start">
+                    {% if user.is_staff %}
+                        <a href="/admin" class="btn btn-warning my-2">
+                            <i class="bi bi-shield-lock-fill me-1"></i> Access Admin Panel
+                        </a>
+                        <a href="{% url 'structure_list' %}" class="btn btn-info my-2">
+                            <i class="bi bi-pencil-square me-1"></i> Access CRUD Panel
+                        </a>
+                    {% endif %}
+                    <form method="post" action="{% url 'logout' %}" class="my-2">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-box-arrow-right me-1"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
