@@ -240,7 +240,7 @@
                 const starRating = document.querySelector('.star-rating');
                 const initialRating = parseInt(starRating.getAttribute('data-initial-rating')) || 0;
 
-                // Apply initial selected stars
+                // Initial stars
                 if (initialRating > 0) {
                     for (let i = 0; i < initialRating; i++) {
                         starLabels[i].classList.add('selected');
@@ -267,7 +267,7 @@
                     });
                 });
 
-                // On mouse leave, remove only hovered (keep selected as is)
+                // On mouse leave, remove only hovered, keep selected as is
                 starRating.addEventListener('mouseleave', function () {
                     starLabels.forEach(l => l.classList.remove('hovered'));
                 });
@@ -277,7 +277,7 @@
         <style>
             .star-label i {
                 font-size: 1.5rem;
-                color: #ccc; /* default grey color */
+                color: #ccc;
                 cursor: pointer;
                 transition: color 0.2s;
                 margin-right: 0.2rem;
@@ -288,6 +288,9 @@
             .star-label.selected i {
                 color: #ffc107;
             }
+
+            {#    TODO: Refactor this, needs readability#}
         </style>
     {% endblock %}
 {% endblock %}
+</div>
